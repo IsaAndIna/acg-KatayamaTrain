@@ -67,6 +67,13 @@ void draw_polygon(
         float p1x = polygon_xy[i1_vtx * 2 + 0] - x;
         float p1y = polygon_xy[i1_vtx * 2 + 1] - y;
         // write a few lines of code to compute winding number (hint: use atan2)
+        float theta =atan2(p1y,p1x)-atan2(p0y,p0x);
+        if (theta>M_PI){
+          theta=theta-M_PI*2;
+        }else if (theta<-M_PI){
+          theta=theta+M_PI*2;
+        }
+        winding_number += -theta / (M_PI*2);
       }
       const int int_winding_number = int(std::round(winding_number));
       if (int_winding_number == 1 ) { // if (x,y) is inside the polygon
@@ -93,6 +100,54 @@ void dda_line(
   auto dx = x1 - x0;
   auto dy = y1 - y0;
   // write some code below to paint pixel on the line with color `brightness`
+  const float theta=atan2(dy,dx);
+  int orientation=3;
+  if ((theta> -M_PI*0.25) & (theta<=M_PI*0.25)){
+    orientation=1;
+  }else if ((theta>M_PI*0.25) & (theta<=M_PI*0.75)){
+    orientation=2;
+  }else if ((theta> -M_PI*0.75) & (theta<= -M_PI*0.25)){
+    orientation=4;
+  }
+  if (orientation==1){
+    const int i0 = int(x0+0.5f);
+    const int i1 = int(x1-0.5f);
+    
+    const float a= dy/dx;
+    for (int iw = i0; iw<=i1; iw++){
+      int ih= int(a*(iw+0.5f-x0)+y0);
+      img_data[ih*width + iw] = brightness;
+    }
+  }
+  else if (orientation==2){
+    const int i0 = int(y0+0.5f);
+    const int i1 = int(y1-0.5f);
+    
+    const float a= dx/dy;
+    for (int ih = i0; ih<=i1; ih++){
+      int iw= int(a*(ih+0.5f-y0)+x0);
+      img_data[ih*width + iw] = brightness;
+    }
+  }else if (orientation==3){
+    const int i0 = int(x1+0.5f);
+    const int i1 = int(x0-0.5f);
+    
+    const float a= dy/dx;
+    for (int iw = i0; iw<=i1; iw++){
+      int ih= int(a*(iw+0.5f-x1)+y1);
+      img_data[ih*width + iw] = brightness;
+    }
+  }else if (orientation==4){
+    const int i0 = int(y1+0.5f);
+    const int i1 = int(y0-0.5f);
+    
+    const float a= dx/dy;
+    for (int ih = i0; ih<=i1; ih++){
+      int iw= int(a*(ih+0.5f-y1)+x1);
+      img_data[ih*width + iw] = brightness;
+    }
+  }
+
 }
 
 int main() {
