@@ -100,6 +100,8 @@ void dda_line(
   auto dx = x1 - x0;
   auto dy = y1 - y0;
   // write some code below to paint pixel on the line with color `brightness`
+  
+  // Identify the angle and type of slope.
   const float theta=atan2(dy,dx);
   int orientation=3;
   if ((theta> -M_PI*0.25) & (theta<=M_PI*0.25)){
@@ -109,6 +111,8 @@ void dda_line(
   }else if ((theta> -M_PI*0.75) & (theta<= -M_PI*0.25)){
     orientation=4;
   }
+
+  // 
   if (orientation==1){
     const int i0 = int(x0+0.5f);
     const int i1 = int(x1-0.5f);
@@ -118,8 +122,7 @@ void dda_line(
       int ih= int(a*(iw+0.5f-x0)+y0);
       img_data[ih*width + iw] = brightness;
     }
-  }
-  else if (orientation==2){
+  }else if (orientation==2){
     const int i0 = int(y0+0.5f);
     const int i1 = int(y1-0.5f);
     
