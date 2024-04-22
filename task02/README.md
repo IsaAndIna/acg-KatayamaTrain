@@ -1,4 +1,4 @@
-# Task01: Rasterization of parametric curves
+# Task02: Rasterization of parametric curves
 
 **Deadline: April 25st (Thu) at 15:00pm**
 

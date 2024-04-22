@@ -65,8 +65,17 @@ int number_of_intersection_ray_against_quadratic_bezier(
     const Eigen::Vector2f &pc,
     const Eigen::Vector2f &pe) {
   // comment out below to do the assignment
-  return number_of_intersection_ray_against_edge(org, dir, ps, pe);
+  // return number_of_intersection_ray_against_edge(org, dir, ps, pe);
   // write some code below to find the intersection between ray and the quadratic
+  int count_cross = 0;
+  const double dt=0.04;// To be determined. (resolution of interpolation)
+  Eigen::Vector2f p_temp= ps ;
+  for (double t=dt; t<1.0+dt; t+=dt){
+    const Eigen::Vector2f p_temp2= (1 - t) * (1 - t) * ps + 2 * (1 - t) * t * pc + t * t * pe;
+    count_cross+=number_of_intersection_ray_against_edge(org, dir, p_temp, p_temp2);
+    p_temp=p_temp2;
+  }
+  return count_cross;
 }
 
 int main() {
