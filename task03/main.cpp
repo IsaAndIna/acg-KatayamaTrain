@@ -67,8 +67,33 @@ void draw_3d_triangle_with_texture(
       // `bc` gives the barycentric coordinate **on the screen** and it is distorted.
       // Compute the barycentric coordinate ***on the 3d triangle** below that gives the correct texture mapping.
       // (Hint: formulate a linear system with 4x4 coefficient matrix and solve it to get the barycentric coordinate)
+      // Eigen::Matrix4f coeff;
+      // coeff <<  r0[0], r1[0], r2[0], 0,
+      //       r0[1], r1[1], r2[1], 0,
+      //       q0[2]/q0[3], q1[2]/q1[3], q2[2]/q2[3], -1,
+      //       1,     1,     1,     0;
+      // Eigen::Vector4f rhs;//[s[0], s[1], 0, 1]
+      // rhs << s[0], s[1], 0, 1;
+
+      // //Solve the problem
+      // Eigen::Vector4f bc4 = coeff.inverse() * rhs;
+      // bc = bc4.head<3>();
+      // bc[0]=bc[0]/q0[3]; bc[1]=bc[1]/q1[3]; bc[2]=bc[2]/q2[3];
+      // const double sum_bc = bc[0] + bc[1] + bc[2];
+      // bc /= sum_bc;
+
       Eigen::Matrix4f coeff;
-      Eigen::Vector4f rhs;
+      coeff <<  q0[0], q1[0], q2[0], 0,
+                q0[1], q1[1], q2[1], 0,
+                q0[2], q1[2], q2[2], -1,
+                q0[3], q1[3], q2[3], 0;
+      Eigen::Vector4f rhs;//[s[0], s[1], 0, 1]
+      rhs << s[0], s[1], 0, 1;
+
+      //Solve the problem
+      bc = (coeff.inverse() * rhs).head<3>();
+      const double sum_bc = bc[0] + bc[1] + bc[2];
+      bc /= sum_bc;
 
       // do not change below
       auto uv = uv0 * bc[0] + uv1 * bc[1] + uv2 * bc[2]; // uv coordinate of the pixel
