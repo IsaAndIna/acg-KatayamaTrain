@@ -40,7 +40,7 @@ The program output the computation time. Fill the table below to compare the tim
 
 | brute force | BVH    |
 | ----------- | ------ |
-| ??? ms      | ??? ms |
+| 3298480 ms    | 4803 ms |
 
 
 
@@ -49,11 +49,11 @@ The program output the computation time. Fill the table below to compare the tim
 
 Now you have the code for fast ray-mesh intersection. Using that code, let's compute the ambient occlusion.
 
-- First, Comment out the `continue;`  in the `main()` at `line #21` in the original code . This will enable the ambient occlusion computation. The problem will output `ao.png`.
+- First, Comment out the `continue;`  in the `main()` at `line #221` in the original code . This will enable the ambient occlusion computation. The problem will output `ao.png`.
 
 - Then fix the bug in `line #223`in the original code  to correctly compute the ambient occlusion. The result should looks like `preview.png` at the begining of this document.
 
-- Finally, modify the name of the outut image as `ao_uniform.png`
+- Finally, modify the name of the output image as `ao_uniform.png`
 
 
 
