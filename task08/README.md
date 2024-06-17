@@ -91,7 +91,7 @@ For bone `i_bone`, the index of parent bone is `self.bone2parentbone[i_bone]`.
 3D Affine transformation from the parent bone is written in `bone2relativeTransformation`.
 Note that index of parent bone is always smaller than the child bone e.g., `ibone > bone2relativeTransformation[i_bone]`.
 
-Write some code around line #??? to compute the transformations of all the bones in `bone2globalTransformation`.
+Write some code around line #97 to compute the transformations of all the bones in `bone2globalTransformation`.
 
 This will animate the frames (red, blue, and green cylinders) of the bones.    
 
@@ -99,7 +99,7 @@ This will animate the frames (red, blue, and green cylinders) of the bones.
 
 We now have the 3D transformation of each bone, let's animate the mesh using the linear blend skinning.
 
-Write some code around line #??? to implement the linear blend skinning.
+Write some code around line #112 to implement the linear blend skinning.
 
 Each vertex of the mesh is associated with four bones.
 Use `inverseBindingMatrix` which has the inverse transformation of bone from origin to the undeformed mesh. 
